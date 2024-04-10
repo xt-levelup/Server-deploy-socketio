@@ -15,6 +15,8 @@ const session = require("express-session");
 const compression = require("compression");
 const morgan = require("morgan");
 
+const job14minutes=require("./cron");
+
 const flash = require("connect-flash");
 
 const User = require("./models/user");
@@ -106,6 +108,9 @@ mongoose
     io.on("connection", (socket) => {
       console.log("Client  connected!");
     });
+
+    // Chạy lệnh mỗi 14 phút
+    job14minutes.start();
   })
   .catch((err) => {
     console.log(err);
